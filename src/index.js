@@ -30,11 +30,13 @@ const onSetDataChannel = () => {
     }
 
     let receivedMetadata = false;
+    let chat;
+
     dataChannel.onmessage = async ev => {
         if (!receivedMetadata) {
             const receiver = JSON.parse(ev.data);
             document.body.removeChild(document.body.firstElementChild)
-            window.chatEmbed({
+            chat = window.chatEmbed({
                 embed: document.body,
                 receiver: {
                     ...receiver,
@@ -46,6 +48,16 @@ const onSetDataChannel = () => {
                     primaryColor: "#3cb371",
                 },
             })
+
+            receivedMetadata = true;
+
+            chat.addReceiver(msg => {
+                if (msg.fromUser) {
+                    dataChannel.send(msg.content)
+                }
+            })
+        } else {
+            chat.send(ev.data)
         }
     }
 }
