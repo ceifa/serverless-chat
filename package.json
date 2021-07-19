@@ -28,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/ceifa/try-lua/issues"
   },
-  "homepage": "https://github.com/ceifa/try-lua#readme"
+  "homepage": "https://github.com/ceifa/try-lua#readme",
+  "dependencies": {
+    "peerjs": "^1.3.2"
+  }
 }
